@@ -231,24 +231,63 @@
 // 11 16 15 06
 // 10 09 08 07
 
-int[,] Creat2DArray(int rows, int columns)
+// int[,] Creat2DArray(int rows, int columns)
+// {
+//     int[,] array = new int[rows, columns];
+//     int temp = 1;
+//     int i = 0;
+//     int j = 0;
+//     while (temp <= array.GetLength(0) * array.GetLength(1))
+//     {
+//         array[i, j] = temp;
+//             temp++;
+//         if (i <= j + 1 && i + j < array.GetLength(1) - 1)
+//             j++;
+//         else if (i < j && i + j >= array.GetLength(0) - 1)
+//             i++;
+//         else if (i >= j && i + j > array.GetLength(1) - 1)
+//             j--;
+//         else
+//             i--;
+//     }
+//     return array;
+// }
+
+// void Print2DArray(int[,] array)
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//             Console.Write($"{array[i, j]} \t");
+//         Console.WriteLine();
+//     }
+// }
+// Console.WriteLine("Input number of rows ");
+// int rows = Convert.ToInt32(Console.ReadLine());
+// Console.WriteLine("Input number of columns ");
+// int columns = Convert.ToInt32(Console.ReadLine());
+
+// int[,] myArray = Creat2DArray(rows, columns);
+// Print2DArray(myArray);
+
+
+// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Например, даны 2 матрицы:
+// 2 4 | 3 4
+// 3 2 | 3 3
+// Результирующая матрица будет:
+// 18 22
+// 15 18
+
+int[,] Create2DRandomArray(int rows, int columns, int minValue, int maxValue)
 {
     int[,] array = new int[rows, columns];
-    int temp = 1;
-    int i = 0;
-    int j = 0;
-    while (temp <= array.GetLength(0) * array.GetLength(1))
+    for (int i = 0; i < rows; i++)
     {
-        array[i, j] = temp;
-            temp++;
-        if (i <= j + 1 && i + j < array.GetLength(1) - 1)
-            j++;
-        else if (i < j && i + j >= array.GetLength(0) - 1)
-            i++;
-        else if (i >= j && i + j > array.GetLength(1) - 1)
-            j--;
-        else
-            i--;
+        for (int j = 0; j < columns; j++)
+        {
+            array[i, j] = new Random().Next(minValue, maxValue);
+        }
     }
     return array;
 }
@@ -258,14 +297,54 @@ void Print2DArray(int[,] array)
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
-            Console.Write($"{array[i, j]} \t");
+        {
+            Console.Write(array[i, j]+" ");
+        }
         Console.WriteLine();
     }
 }
-Console.WriteLine("Input number of rows ");
-int rows = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input number of columns ");
-int columns = Convert.ToInt32(Console.ReadLine());
 
-int[,] myArray = Creat2DArray(rows, columns);
-Print2DArray(myArray);
+int [,]  MultiplyingArrays(int[,] array1, int[,] array2)
+{
+    var array3 = new int[array1.GetLength(0), array2.GetLength(1)];
+    if (array1.GetLength(1) == array2.GetLength(0))
+    {
+        for (int i = 0; i < array3.GetLength(0); i++)
+        {
+            for (int j = 0; j < array3.GetLength(1); j++)
+            {
+                array3[i, j] = 0;
+                for (int n = 0; n < array1.GetLength(1); n++)
+                {
+                    array3[i, j] += array1[i, n] * array2[n, j];
+                }
+            }
+        }
+    }
+    return array3;
+}
+
+Console.WriteLine("Input number of rows 1 array ");
+int rows1 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input number of columns 1 array ");
+int columns1 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input min value of element 1 array ");
+int minValue1 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input max value of element 1 array ");
+int maxValue1 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input number of rows 2 array ");
+int rows2 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input number of columns 2 array ");
+int columns2 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input min value of element 2 array ");
+int minValue2 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input max value of element 2 array ");
+int maxValue2 = Convert.ToInt32(Console.ReadLine());
+int[,] array1 = Create2DRandomArray(rows1, columns1, minValue1, maxValue1);
+Print2DArray(array1);
+Console.WriteLine();
+int[,] array2 = Create2DRandomArray(rows2, columns2, minValue2, maxValue2);
+Print2DArray(array2);
+Console.WriteLine();
+int[,] array3 = MultiplyingArrays(array1, array2);
+Print2DArray(array3);
