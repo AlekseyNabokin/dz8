@@ -151,74 +151,121 @@
 // 26(1,0,1) 55(1,1,1)
 
 
-int[,,] Random3dArray( int rows, int columns, int field, int minValue, int maxValue ) 
-{ 
-    int[,,] newArray = new int[rows, columns, field]; 
-    for(int i = 0; i < rows; i++) 
-    {
-        for(int j = 0; j < columns; j++)
-        {
-            for(int k = 0; k < field; k++) 
-            { 
-                newArray[i,j,k] = new Random().Next(minValue, maxValue);
-            } 
-        } 
-    } 
-    return newArray;
-} 
+// int[,,] Random3dArray( int rows, int columns, int field, int minValue, int maxValue ) 
+// { 
+//     int[,,] newArray = new int[rows, columns, field]; 
+//     for(int i = 0; i < rows; i++) 
+//     {
+//         for(int j = 0; j < columns; j++)
+//         {
+//             for(int k = 0; k < field; k++) 
+//             { 
+//                 newArray[i,j,k] = new Random().Next(minValue, maxValue);
+//             } 
+//         } 
+//     } 
+//     return newArray;
+// } 
 
-static int RandomValue(int[,,] newArray, int minValue, int maxValue, int i, int j, int k)
+// static int RandomValue(int[,,] newArray, int minValue, int maxValue, int i, int j, int k)
+// {
+//     int value = default;
+//     bool flag = true;
+//     while (flag)
+//     {
+//         bool noStop = true;
+//         value = new Random().Next(minValue, maxValue + 1);
+//         for (int x = 0; x < newArray.GetLength(0) && noStop; x++)
+//         {
+//             for (int y = 0; y < newArray.GetLength(1) && noStop; y++)
+//             {
+//                 for (int z = 0; z < newArray.GetLength(2) && noStop; z++)
+//                 {
+//                     if (newArray[x, y, z] == value) 
+//                         noStop = false; 
+//                     if (x == i && y == j && z == k) 
+//                         flag = false; 
+//                 }
+//             }
+//         }
+//     }
+//     return value;
+// }    
+
+// void Show3dArray(int[,,] newArray) 
+// { 
+//     for (int i = 0; i < newArray.GetLength(0); i++) 
+//     { 
+//         for(int j = 0; j < newArray.GetLength(1); j++) 
+//         { 
+//             for(int k = 0; k < newArray.GetLength(2); k++) 
+//             { 
+//                 Console.Write($"{newArray[i, j, k], 1}({i},{j},{k}) \t"); 
+//             }
+//             Console.WriteLine();
+//         }
+//     } 
+//     Console.WriteLine(); 
+// } 
+
+// Console.WriteLine("Input number of rows ");
+// int rows = Convert.ToInt32(Console.ReadLine());
+// Console.WriteLine("Input number of columns ");
+// int columns = Convert.ToInt32(Console.ReadLine());
+// Console.WriteLine("Input number of field ");
+// int field = Convert.ToInt32(Console.ReadLine());
+// Console.WriteLine("Input mini value of element");
+// int minValue = Convert.ToInt32(Console.ReadLine());
+// Console.WriteLine("Input max value of element");
+// int maxValue = Convert.ToInt32(Console.ReadLine());
+
+// int[,,] myArray = Random3dArray(rows, columns, field, minValue, maxValue);
+
+// Show3dArray(myArray);
+
+
+// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+// Например, на выходе получается вот такой массив:
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+int[,] Creat2DArray(int rows, int columns)
 {
-    int value = default;
-    bool flag = true;
-    while (flag)
+    int[,] array = new int[rows, columns];
+    int temp = 1;
+    int i = 0;
+    int j = 0;
+    while (temp <= array.GetLength(0) * array.GetLength(1))
     {
-        bool noStop = true;
-        value = new Random().Next(minValue, maxValue + 1);
-        for (int x = 0; x < newArray.GetLength(0) && noStop; x++)
-        {
-            for (int y = 0; y < newArray.GetLength(1) && noStop; y++)
-            {
-                for (int z = 0; z < newArray.GetLength(2) && noStop; z++)
-                {
-                    if (newArray[x, y, z] == value) 
-                        noStop = false; 
-                    if (x == i && y == j && z == k) 
-                        flag = false; 
-                }
-            }
-        }
+        array[i, j] = temp;
+            temp++;
+        if (i <= j + 1 && i + j < array.GetLength(1) - 1)
+            j++;
+        else if (i < j && i + j >= array.GetLength(0) - 1)
+            i++;
+        else if (i >= j && i + j > array.GetLength(1) - 1)
+            j--;
+        else
+            i--;
     }
-    return value;
-}    
+    return array;
+}
 
-void Show3dArray(int[,,] newArray) 
-{ 
-    for (int i = 0; i < newArray.GetLength(0); i++) 
-    { 
-        for(int j = 0; j < newArray.GetLength(1); j++) 
-        { 
-            for(int k = 0; k < newArray.GetLength(2); k++) 
-            { 
-                Console.Write($"{newArray[i, j, k], 1}({i},{j},{k}) \t"); 
-            }
-            Console.WriteLine();
-        }
-    } 
-    Console.WriteLine(); 
-} 
-
+void Print2DArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write($"{array[i, j]} \t");
+        Console.WriteLine();
+    }
+}
 Console.WriteLine("Input number of rows ");
 int rows = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine("Input number of columns ");
 int columns = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input number of field ");
-int field = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input mini value of element");
-int minValue = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input max value of element");
-int maxValue = Convert.ToInt32(Console.ReadLine());
 
-int[,,] myArray = Random3dArray(rows, columns, field, minValue, maxValue);
-
-Show3dArray(myArray);
+int[,] myArray = Creat2DArray(rows, columns);
+Print2DArray(myArray);
